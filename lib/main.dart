@@ -1,115 +1,64 @@
 import 'package:flutter/material.dart';
+import 'pages/home_page.dart';
+import 'pages/about_page.dart';
+import 'pages/contact_page.dart';
+import 'widgets/header.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const HomePage(),
+    const AboutPage(),
+    const ContactPage(),
+  ];
+
+  void _navigateTo(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              HeroSection(),
-              InfoSection(),
-              Footer(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// Hero Section
-class HeroSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.blueGrey,
-      child: Column(
-        children: [
-          const Text(
-            'Minecraft Server Landing Page',
-            style: TextStyle(fontSize: 24, color: Colors.white),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Join the best server for epic adventures!',
-            style: TextStyle(fontSize: 16, color: Colors.white70),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Information Section
-class InfoSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Text(
-            'Server Information',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          InfoCard(title: 'Server Name', content: 'EpicCraft'),
-          InfoCard(title: 'Status', content: 'Online'),
-          InfoCard(title: 'Players Online', content: '42'),
-        ],
-      ),
-    );
-  }
-}
-
-// Footer
-class Footer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.black,
-      child: const Text(
-        '© 2024 EpicCraft Server. All rights reserved.',
-        style: TextStyle(color: Colors.white70),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
-
-// Reusable Info Card Widget
-class InfoCard extends StatelessWidget {
-  final String title;
-  final String content;
-
-  const InfoCard({required this.title, required this.content});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Column(
           children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 4),
-            Text(content),
+            Header(
+              title: _getTitle(_currentIndex),
+              onNavigate: _navigateTo,
+            ),
+            Expanded(
+              child: IndexedStack(
+                index: _currentIndex,
+                children: _pages,
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  String _getTitle(int index) {
+    switch (index) {
+      case 1:
+        return 'About Us';
+      case 2:
+        return 'Contact Us';
+      default:
+        return 'Home Page';
+    }
   }
 }
