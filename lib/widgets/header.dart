@@ -14,14 +14,14 @@ class Header extends StatelessWidget {
           // Page Title
           Padding( // Added Padding widget for general padding
             padding: const EdgeInsets.symmetric(horizontal: 16.0), // Adjust padding as needed
-            child: const Text(
-              'Home Page',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            // child: const Text(
+            //   'Home Page',
+            //   style: TextStyle(
+            //     fontSize: 20,
+            //     fontWeight: FontWeight.bold,
+            //     color: Colors.white,
+            //   ),
+            // ),
           ),
           // Navigation Links
           Row(
