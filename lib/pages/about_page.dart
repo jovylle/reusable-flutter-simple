@@ -6,7 +6,7 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text(
+      child: SelectableText(
         'This is the About Us Page.',
         style: TextStyle(fontSize: 18),
       ),

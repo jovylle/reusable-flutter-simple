@@ -6,59 +6,64 @@ import 'widgets/header.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    const HomePage(),
-    const AboutPage(),
-    const ContactPage(),
-  ];
-
-  void _navigateTo(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Column(
-          children: [
-            Header(
-              title: _getTitle(_currentIndex),
-              onNavigate: _navigateTo,
-            ),
-            Expanded(
-              child: IndexedStack(
-                index: _currentIndex,
-                children: _pages,
-              ),
-            ),
-          ],
-        ),
-      ),
+      title: 'Reusable Website Template',
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MainLayout(child: HomePage()),
+        '/about': (context) => const MainLayout(child: AboutPage()),
+        '/contact': (context) => const MainLayout(child: ContactPage()),
+      },
     );
   }
+}
+class MainLayout extends StatelessWidget {
+  final Widget child;
 
-  String _getTitle(int index) {
-    switch (index) {
-      case 1:
-        return 'About Us';
-      case 2:
-        return 'Contact Us';
-      default:
-        return 'Home Page';
-    }
+  const MainLayout({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF7F8FA), // Light background
+      body: Column(
+        children: [
+          Container(
+            color: Colors.blueGrey, // Full-width header background
+            child: Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 1280), // Limit width
+                child: const Header(), // Header with navigation
+              ),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 1280), // Limit width
+                child: child, // The page's main content
+              ),
+            ),
+          ),
+          // Future footer implementation
+          // Container(
+          //   color: Colors.blueGrey, // Full-width footer background
+          //   child: Center(
+          //     child: Container(
+          //       constraints: const BoxConstraints(maxWidth: 1280), // Limit width
+          //       child: const Footer(), // Footer content
+          //     ),
+          //   ),
+          // ),
+        ],
+      ),
+    );
   }
 }

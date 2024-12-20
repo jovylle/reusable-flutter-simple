@@ -1,49 +1,47 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  final String title;
-  final Function(int) onNavigate;
-
-  const Header({super.key, required this.title, required this.onNavigate});
+  const Header({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
       color: Colors.blueGrey,
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Title
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+          // Page Title
+          Padding( // Added Padding widget for general padding
+            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Adjust padding as needed
+            child: const Text(
+              'Home Page',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
-          // Navigation Buttons
+          // Navigation Links
           Row(
             children: [
               TextButton(
-                onPressed: () => onNavigate(0),
+                onPressed: () => Navigator.pushNamed(context, '/'),
                 child: const Text(
                   'Home',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              const SizedBox(width: 10),
               TextButton(
-                onPressed: () => onNavigate(1),
+                onPressed: () => Navigator.pushNamed(context, '/about'),
                 child: const Text(
                   'About Us',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              const SizedBox(width: 10),
               TextButton(
-                onPressed: () => onNavigate(2),
+                onPressed: () => Navigator.pushNamed(context, '/contact'),
                 child: const Text(
                   'Contact Us',
                   style: TextStyle(color: Colors.white),

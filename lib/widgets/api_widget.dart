@@ -44,7 +44,7 @@ class _ApiWidgetState extends State<ApiWidget> {
       margin: const EdgeInsets.all(16),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Text(
+        child: SelectableText(
           data,
           style: const TextStyle(fontSize: 18),
         ),

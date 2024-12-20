@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          const SelectableText(
             'Welcome to the Home Page!',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),

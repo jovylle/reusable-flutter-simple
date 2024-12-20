@@ -6,12 +6,17 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blueGrey, // Full-width footer background
       padding: const EdgeInsets.all(16),
-      color: Colors.black,
-      child: const Text(
-        '© 2024 Your Website. All rights reserved.',
-        style: TextStyle(color: Colors.white70),
-        textAlign: TextAlign.center,
+      child: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 1280), // Limit width
+          child: const Text(
+            'Version 1.0.0 | © 2024 Your Name',
+            style: TextStyle(color: Colors.white70),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
